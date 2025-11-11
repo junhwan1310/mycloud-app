@@ -1,3 +1,7 @@
+// 웹 어플리케이션을 위한 기본 설정을 가짐
+// 모듈을 로딩하고 템플릿 엔진 설정하며, 라우트 설정함
+// 상단부에는 사용할 모듈을 로딩하는 코드 작성 
+// 외부 모듈을 해당 파일에 사용하고 싶다면 require() 함수를 호출한다
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
