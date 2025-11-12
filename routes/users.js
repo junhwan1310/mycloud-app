@@ -24,6 +24,7 @@ router.get('/memberUpdate', function(req, res, next) {
 });
 
 // 장바구니
+//-> http://localhost:3000/users/cart
 router.get('/cart', function(req, res, next) {
   res.render('index', {title: '장바구니', pageName: 'pages/users/cart.ejs'});
 });

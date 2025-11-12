@@ -1,4 +1,4 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.5.0/${FIREBASE_VERSION}/firebase-app.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js';
 
 // 파이어베이스 API를 활용하여 웹 서비스를 제공받기 위한 초기화 작업. 
 
