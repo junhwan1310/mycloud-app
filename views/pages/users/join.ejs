@@ -1,24 +1,50 @@
 <div class="row my-5 justify-content-center">
-    <div class="col-8 col-md-6 col-lg-4">
-      <h3 class="text-center mb-5">회원가입</h3>
-      <form id="join" name="frm" method="post">
-        <div class="input-group my-2">
-          <div class="input-group-text">이 메 일</div>
-          <input class="form-control" id="email" name="email" value="tomato@hot.com" />
-        </div>
-        <div class="input-group">
-          <div class="input-group-text">비밀번호</div>
-          <input
-            class="form-control"
-            name="password"
-            type="password"
-            value="12345678"
-          />
-        </div>
-        <div class="my-3">
-          <button class="btn btn-success w-100">회원가입</button>
-        </div>
-        <div class="text-end mt-3"><a href="/login">로그인</a></div>
-      </form>
-    </div>
+  <div class="col-8 col-md-6 col-lg-4">
+    <h3 class="text-center mb-5">회원가입</h3>
+    <form id="join" name="frm" method="post">
+      <div class="input-group my-2">
+        <div class="input-group-text">이 메 일</div>
+        <input class="form-control" id="email" name="email" value="tomato@hot.com" />
+      </div>
+      <div class="input-group">
+        <div class="input-group-text">비밀번호</div>
+        <input class="form-control" id="password" name="password" type="password" value="12345678" />
+      </div>
+      <div class="my-3">
+        <button type="submit" class="btn btn-success w-100">회원가입</button>
+      </div>
+      <div class="text-end mt-3"><a href="/login">로그인</a></div>
+    </form>
   </div>
+</div>
+<script type="module">
+  import { getAuth , createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js'
+  import { app } from '/javascripts/firebase.js'
+  const auth = getAuth(app)
+  console.log(auth);
+  const join = document.querySelector("#join")
+  //회원가입 버튼을 눌렀을때 실행된다.
+  //button에 type이 없으면 디폴트가 submit이므로 굳이 click이벤트로 처리하지 않아도 서버로 전송이 된다.
+  //<input type='button'>
+  //submit 이슈가 있어서 서버로 전송후에 새로고침이 발동합니다. - 이벤트 전이가 일어나서... 
+  //event.prevenDefault() 반드시 호출하여 이벤트 전이를 막을 것 
+  join.addEventListener('submit', function (event) {
+    event.preventDefault()
+    console.log('회원가입 호출 성공');
+    const u_email = document.querySelector("#email").value
+    const u_pw = document.querySelector("#password").value
+    createUserWithEmailAndPassword(auth, u_email, u_pw)
+      .then((response) => {
+        //회원가입 성공하면 함수에 파라미터에 인증객체와 이메일과 비번을 비교해서 
+        //일치하면 내가 응답으로 메시지를 주입(response)해 줄것을 약속할게 -콜백함수
+        console.log(response);
+        //회원가입에 성공하면 어디로 가면 될까 - 로그인화면으로 가야지 
+        location.href = "/login"
+      }) //end of createUserWithEmailAndPassword
+      .catch((error) => {//에러가 발생하면 그때 실행됨
+        const errorCode = error.errorCode
+        const errorMessage = error.message
+        console.log(`${errorCode}, ${errorMessage}`);
+      })
+  }); //회원가입 이벤트 처리 끝 end of submit
+</script>
