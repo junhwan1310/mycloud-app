@@ -33,6 +33,7 @@
     console.log('회원가입 호출 성공');
     const u_email = document.querySelector("#email").value
     const u_pw = document.querySelector("#password").value
+    console.log(`u_email:${u_email}, u_pw::${u_pw}`);
     createUserWithEmailAndPassword(auth, u_email, u_pw)
       .then((response) => {
         //회원가입 성공하면 함수에 파라미터에 인증객체와 이메일과 비번을 비교해서 
